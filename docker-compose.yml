@@ -1,0 +1,25 @@
+services:
+  db-rag:
+    image: pgvector/pgvector:pg16
+    container_name: DB.rag
+    restart: unless-stopped
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - DB_rag_data:/var/lib/postgresql/data
+      # Runs only the first time, when the volume is empty
+      - ./database/setup.sql:/docker-entrypoint-initdb.d/setup.sql:ro
+    networks:
+      - rag-network
+
+volumes:
+  DB_rag_data:
+
+# Connect your n8n container to this network, then use host "db-rag", port 5432
+networks:
+  rag-network:
+    name: rag-network
