@@ -1,4 +1,4 @@
-**English** | [العربية](README.ar.md)
+**English** | [Arabic](README.ar.md)
 
 # AI-Powered Customer Support Agent
 
